@@ -41,14 +41,75 @@ class Linkedlist:
             itr = itr.next
         print(lkliststring)
 
+    #inserting element at the end
+  
+    def insert_at_end(self, data):
+        if self.head is None:
+            self.head = Node(data, None)
+            return
+
+        itr = self.head
+        while itr.next:
+            itr = itr.next
+
+        itr.next = Node(data , None)
+    #Inserting new value into the linkedlist
+    def insert(self, data_list):
+        self.head=None
+        for data in data_list:
+            self.insert_at_end(data)
+    #finding length of LinkedList
+    def getLength(self):
+        count=0
+        itr=self.head
+        while itr:
+            count +=1
+            itr=itr.next
+
+        return count
+    # remove element from given index
+    def remove_at(self,index):
+        if index<0 or index>=self.getLength():
+            raise Exception("Index out of range")
+        if index==0:
+            self.head=self.head.next
+            return
+        count=0
+        itr=self.head
+        while itr:
+            if count == index - 1:
+                itr.next = itr.next.next
+                break
+            itr = itr.next
+            count+=1
+    #Inserting element and value at given index
+    def insert_at(self, index, data):
+        if index < 0 or index > self.getLength():
+            raise Exception("Index out of range")
+        if index == 0:
+            self.insert_at_beginning(data)
+            return
+        count = 0
+        itr = self.head
+        while itr:
+            if count == index - 1:
+                node = Node(data, itr.next)
+                itr.next = node
+                break
+            itr = itr.next
+            count += 1
+
+
+
+
 if __name__ == '__main__':
     lnklst= Linkedlist()
-    lnklst.insert_at_beginning(5)
-    lnklst.insert_at_beginning(4)
-    lnklst.insert_at_beginning(3)
-    lnklst.insert_at_beginning(2)
-    lnklst.insert_at_beginning(1)
    
+    lnklst.insert(["ford","Toyota","Hyundai","Subaru"])
+    #lnklst.remove_at(2)
+    lnklst.print()
+    #print("The length of the linked list",lnklst.getLength())
+    lnklst.insert_at(0, "Honda")
     lnklst.print()
 
     
