@@ -99,17 +99,53 @@ class Linkedlist:
             itr = itr.next
             count += 1
 
+    def insert_after_value(self, data_after,data_to_insert):
+        itr = self.head
+        while itr :
+            if itr.data == data_after:
+                itr.next = Node(data_to_insert,itr.next)
+                return
+                itr = itr.next
+            
+        raise ValueError('The specified value does not exist in the list')
+
+    def remove_by_value(self,data):
+        itr = self.head
+        if itr.data == data:
+            self.remove_from_index(0)
+            return
+        else:
+            while itr.next:
+                if itr.next.data==data:
+                    itr.next=itr.next.next
+                    itr=itr.next
+                    return
+                itr=itr.next
+            raise ValueError('The specified value is not found in the list')
+    
+            
+
+
+       
+
+
+
+
 
 
 
 if __name__ == '__main__':
     lnklst= Linkedlist()
    
-    lnklst.insert(["ford","Toyota","Hyundai","Subaru"])
+    #lnklst.insert(["ford","Toyota","Hyundai","Subaru"])
     #lnklst.remove_at(2)
-    lnklst.print()
+    #lnklst.print()
     #print("The length of the linked list",lnklst.getLength())
-    lnklst.insert_at(0, "Honda")
+    #lnklst.insert_at(0, "Honda")
+    lnklst.insert(["banana","mango","grapes","orange"])
+    lnklst.print()
+    #lnklst.insert_after_value("mango","apple")
+    lnklst.remove_by_value("orange")
     lnklst.print()
 
     
