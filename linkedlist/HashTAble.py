@@ -1,8 +1,8 @@
 #create hash class
 class HashTable:
     def __init__(self):
-        self.size = 100
-        self.arr = [None for i in range(self.size)]
+        self.size = 10
+        self.arr = [[] for  i in range(self.size)]
 
 
 
@@ -28,22 +28,38 @@ class HashTable:
     #def add(self,key,value):
         #h=self.hashfunc(key)
         #self.arr[h] = value
-    def __setitem__(self,key,value):
-        h=self.hashfunc(key)
-        self.arr[h] = value
+    #def __setitem__(self,key,value):
+        #h=self.hashfunc(key)
+        #self.arr[h] = value
+    """ to avoid collision we have to use 
+    chaining method so the the add method syntax will have to 
+    change because now we have an array inside each array"""
+    def __setitem__(self, key, value):
+        h = self.hashfunc(key)
+        found = False
+        for index, element in enumerate(self.arr[h]):
+            if len(element) == 2 and element[0] == key:
+                self.arr[h][index] = (key, value)
+                found = True
+                break
+        if not found:
+            self.arr[h].append((key,value))
+
 
 
     #create a get method
     """the get method is used to 
     retrieve the value associated with
-     a given key from the hash table"""
+    a given key from the hash table"""
     #def get(self,key):
         #h=self.hashfunc(key)
         #return self.arr[h]
 
     def __getitem__(self,key):
         h=self.hashfunc(key)
-        return self.arr[h]    
+        for element in self.arr[h]:
+            if element[0] == key:
+                    return element[1]
     """
     Python has in built functions that eanble 
     you to call the "add" and the "get" method
@@ -61,17 +77,19 @@ class HashTable:
     key/value associated with the input key."""
     def __delitem__(self,key):
         h=self.hashfunc(key)
-        self.arr[h] = None
+        for index, element in enumerate(self.arr[h]):
+            if element[0]==key:
+                del self.arr[h][index]
     
 ex = HashTable()
-ex['march 30'] = 234
-ex['march 5'] = 23
-ex['march 3'] = 24
-ex['Dec 30'] = 3456
-ex['march 20'] = 234
 
-#print(ex.arr)
+ex['march 6'] = 345
+ex['march 6'] = 1
+ex['march 10'] = 67
+ex['march 34'] = 35
+ex['march 17'] = 9
+ex['march 12'] = 3402
 
-del ex['Dec 30']
-print(ex['Dec 30'])
+print(ex.arr) 
 
+print(ex['march 6'])
