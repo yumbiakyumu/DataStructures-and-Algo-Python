@@ -13,7 +13,7 @@
 #(a) What was the average temperature in first week of Jan
 
 data = []
-file_path = r'Datastructures\HashMaps\hashmap_exercises\nyc_weather.csv'
+file_path = r'Datastructures\HashMaps\hashmap_exercises\Weather Exercise\nyc_weather.csv'
 with open(file_path  , 'r') as file:
     next(file)
     for line_number,line in enumerate(file, start=1):
